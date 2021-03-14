@@ -8,7 +8,7 @@
     </ul>
     <ul>
         <li v-for="pokemon in pokemon_species" :key="pokemon">
-        <span>{{ pokemon.name }}</span>
+        <button class="button button2">{{ pokemon.name }}</button>
       </li>
     </ul>
   </div>
@@ -45,6 +45,14 @@ ul {
 }
 li {
   display: inline-block;
-  margin: 0 10px;
+  margin: 10px 10px;
+}
+.button2 {
+  border: solid;
+  color: red ;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
 }
 </style>

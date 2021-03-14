@@ -6,6 +6,11 @@
         <button @click="getType(item.type)"> {{ "Type : " + item.type }} </button>
       </li>
     </ul>
+    <ul>
+      <li v-for="pokemons in pokemon" :key="pokemons">
+        <button class="button button2" @click="getUrlPoke(pokemons.pokemon.url)">{{ pokemons.pokemon.name }}</button>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -15,6 +20,8 @@ export default {
   name: 'type-pokemon',
   data() {
     return {
+      pokemon: [],
+      allData: [],
       items : [
         {
           type: "normal"
@@ -82,7 +89,15 @@ export default {
   methods:  {
     getType: async function(typeName){
       const response = await fetch(`${this.$pokeUrl}type/${typeName}`)
-      console.log(response)
+      const data = await response.json();
+      this.pokemon = data.pokemon;
+      console.log(data.pokemon)
+    },
+    getUrlPoke: async function(urlPoke){
+      const response = await fetch(`${urlPoke }`)
+      const data = await response.json();
+      this.allData = data.allData;
+      console.log(data.allData)
     }
   }
 }
@@ -100,5 +115,13 @@ li {
 }
 button {
   padding: 10px;
+}
+.button2 {
+  border: solid;
+  color: blue ;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
 }
 </style>
