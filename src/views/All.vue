@@ -7,7 +7,7 @@
       </li>
     </ul>
     <ul>
-        <li v-for="pokemon in pokemon_species" :key="pokemon">
+        <li v-for="pokemon in pokemon_species" :key="pokemon.name">
         <button class="button button2">{{ pokemon.name }}</button>
       </li>
     </ul>

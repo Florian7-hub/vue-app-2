@@ -7,10 +7,17 @@
       </li>
     </ul>
     <ul>
-      <li v-for="pokemons in pokemon" :key="pokemons">
-        <button class="button button2" @click="getUrlPoke(pokemons.pokemon.url)">{{ pokemons.pokemon.name }}</button>
+      <li v-for="pokemon in listPokemons" :key="pokemon.name">
+        <button class="button button2" @click="getDetailPokemon(pokemon.pokemon.url)" >{{ pokemon.pokemon.name }}</button>
       </li>
     </ul>
+    <div class ="detailPokemon">
+      <img :src="pokemonImg">
+      <br>
+      <span>
+        {{ pokemonId }} {{ pokemonName }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -20,8 +27,16 @@ export default {
   name: 'type-pokemon',
   data() {
     return {
-      pokemon: [],
+      listPokemons: [],
       allData: [],
+      pokemonImg:"",
+      pokemonId:"",
+      pokemonName:"",
+      detailNews:{
+        urlImage:"",
+        id:"",
+        name:""
+      },
       items : [
         {
           type: "normal"
@@ -90,14 +105,16 @@ export default {
     getType: async function(typeName){
       const response = await fetch(`${this.$pokeUrl}type/${typeName}`)
       const data = await response.json();
-      this.pokemon = data.pokemon;
+      this.listPokemons = data.pokemon;
       console.log(data.pokemon)
     },
-    getUrlPoke: async function(urlPoke){
-      const response = await fetch(`${urlPoke }`)
-      const data = await response.json();
-      this.allData = data.allData;
-      console.log(data.allData)
+    getDetailPokemon: async function(newUrl){
+      const response = await fetch(`${newUrl}`)
+      const data = await response.json()
+      this.pokemonImg = data.sprites.front_default
+      this.pokemonId = data.id
+      this.pokemonName = data.name
+      console.log(data.sprites.front_default)
     }
   }
 }
@@ -124,4 +141,7 @@ button {
   text-decoration: none;
   font-size: 16px;
 }
+  .detailPokemon{
+    color: black;
+  }
 </style>
